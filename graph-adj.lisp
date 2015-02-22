@@ -3,4 +3,5 @@
 (in-package :graph-adj)
 
 (defun to-adj (graph)
-  #2A ((0 0 0) (0 0 0) (0 0 0)))
+  (let ((order (length (graph:nodes graph))))
+    (make-array (list order order) :element-type 'bit)))
