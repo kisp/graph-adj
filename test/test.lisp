@@ -96,7 +96,7 @@
                         (0 0 0)
                         (0 1 0))
                     :nodes '(a b c))))
-    (is (equal '(a b c) (nodes graph)))
+    (is (set-equal '(a b c) (nodes graph)))
     (is (edgequal '((c b)) (edges graph)))))
 
 (deftest test.11
@@ -105,7 +105,7 @@
                         (1 0 0)
                         (0 1 1))
                     :nodes '(a b c))))
-    (is (equal '(a b c) (nodes graph)))
+    (is (set-equal '(a b c) (nodes graph)))
     (is (edgequal '((c b) (c c) (b a)) (edges graph)))))
 
 (deftest test.12
@@ -117,10 +117,11 @@
               :class 'graph)))
 
 (deftest test.13
+  (skip*) ;not finished yet
   (let ((graph
           (from-adj #2A((0 1 0)
                         (1 0 0)
                         (0 0 0))
                     :nodes '(a b c)
                     :class 'graph)))
-    (is (equal '(a b c) (nodes graph)))))
+    (is (set-equal '(a b c) (nodes graph)))))
