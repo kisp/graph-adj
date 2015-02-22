@@ -8,6 +8,11 @@
   (is (= 1 1)))
 
 (deftest test.1
+  (is (equalp #2A((0 0)
+                  (0 0))
+              (to-adj (populate (make-instance 'graph) :nodes '(a b))))))
+
+(deftest test.2
   (is (equalp #2A((0 0 0)
                   (0 0 0)
                   (0 0 0))
