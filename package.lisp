@@ -3,4 +3,5 @@
 (defpackage :graph-adj
   (:use :common-lisp :alexandria)
   (:export
-   #:to-adj))
+   #:to-adj
+   #:from-adj))
