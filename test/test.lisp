@@ -37,7 +37,8 @@
                   (0 0 0))
               (to-adj (populate (make-instance 'digraph)
                                 :nodes '(a b c)
-                                :edges '((a b)))))))
+                                :edges '((a b)))
+                      '(a b c)))))
 
 (deftest test.4
   (is (mequal #2A((0 1 0)
@@ -45,7 +46,8 @@
                   (0 0 1))
               (to-adj (populate (make-instance 'digraph)
                                 :nodes '(a b c)
-                                :edges '((a b) (c c)))))))
+                                :edges '((a b) (c c)))
+                      '(a b c)))))
 
 (deftest test.5
   (is (mequal #2A((0 0)
@@ -64,7 +66,8 @@
                   (0 0 0))
               (to-adj (populate (make-instance 'graph)
                                 :nodes '(a b c)
-                                :edges '((a b)))))))
+                                :edges '((a b)))
+                      '(a b c)))))
 
 (deftest test.8
   (is (mequal #2A((0 1 0)
@@ -72,7 +75,8 @@
                   (0 0 1))
               (to-adj (populate (make-instance 'graph)
                                 :nodes '(a b c)
-                                :edges '((a b) (c c)))))))
+                                :edges '((a b) (c c)))
+                      '(a b c)))))
 
 (deftest test.9
   (is (mequal #2A((0 1 1)
@@ -80,4 +84,5 @@
                   (1 0 0))
               (to-adj (populate (make-instance 'digraph)
                                 :nodes '(a b c)
-                                :edges '((a b) (c a) (a c)))))))
+                                :edges '((a b) (c a) (a c)))
+                      '(a b c)))))

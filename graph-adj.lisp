@@ -2,9 +2,8 @@
 
 (in-package :graph-adj)
 
-(defun to-adj (graph)
-  (let* ((nodes (graph:nodes graph))
-         (order (length nodes)))
+(defun to-adj (graph &optional (nodes (graph:nodes graph)))
+  (let ((order (length nodes)))
     (let ((matrix (make-array (list order order) :element-type 'bit)))
       (labels ((set-edge (edge)
                  (destructuring-bind (x y) edge
