@@ -35,7 +35,9 @@
             (push (list (nth i nodes) (nth j nodes))
                   result)))))))
 
-(defun from-adj (graph &key nodes (class 'graph:digraph))
+(defun from-adj (graph &key
+                         (nodes (iota (array-dimension graph 0)))
+                         (class 'graph:digraph))
   (assert (eql (array-dimension graph 0)
                (array-dimension graph 1)))
   (when (eql 'graph:graph (class-name (find-class class)))
