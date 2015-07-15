@@ -64,7 +64,8 @@
              (to-adj (populate (make-instance 'digraph)
                                :nodes '(a b c)
                                :edges '((a b)))
-                     :type 'cons))))
+                     :type 'cons
+                     :nodes '(a b c)))))
 
 (deftest test.4
   (is (mequal #2A((0 1 0)
@@ -80,7 +81,8 @@
              (to-adj (populate (make-instance 'digraph)
                                :nodes '(a b c)
                                :edges '((a b) (c c)))
-                     :type 'cons))))
+                     :type 'cons
+                     :nodes '(a b c)))))
 
 (deftest test.5
   (is (mequal #2A((0 0)
@@ -130,7 +132,8 @@
              (to-adj (populate (make-instance 'digraph)
                                :nodes '(a b c)
                                :edges '((a b) (c a) (a c)))
-                     :type 'cons))))
+                     :type 'cons
+                     :nodes '(a b c)))))
 
 (deftest test.10
   (let ((graph
