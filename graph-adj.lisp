@@ -2,7 +2,9 @@
 
 (in-package :graph-adj)
 
-(defun to-adj (graph &optional (nodes (graph:nodes graph)))
+(defun to-adj (graph &key (nodes (graph:nodes graph)))
+  "NODES can be specified here, because the GRAPH object might not
+know its nodes in the correct order (due to hash-tables)."
   (let ((order (length nodes)))
     (let ((matrix (make-array (list order order) :element-type 'bit)))
       (labels ((set-edge (edge)
