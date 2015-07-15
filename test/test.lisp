@@ -28,11 +28,27 @@
                   (0 0))
               (to-adj (populate (make-instance 'digraph) :nodes '(a b))))))
 
+(deftest test.1.b
+  (is (mequal #2A((0 0)
+                  (0 0))
+              (to-adj (populate (make-instance 'digraph) :nodes '(a b))
+                      :type 'array))))
+
+(deftest cons.1
+  (is (equal '(2 . 0)
+             (to-adj (populate (make-instance 'digraph) :nodes '(a b))
+                     :type 'cons))))
+
 (deftest test.2
   (is (mequal #2A((0 0 0)
                   (0 0 0)
                   (0 0 0))
               (to-adj (populate (make-instance 'digraph) :nodes '(a b c))))))
+
+(deftest cons.2
+  (is (equal '(3 . 0)
+             (to-adj (populate (make-instance 'digraph) :nodes '(a b c))
+                     :type 'cons))))
 
 (deftest test.3
   (is (mequal #2A((0 1 0)
@@ -43,6 +59,13 @@
                                 :edges '((a b)))
                       :nodes '(a b c)))))
 
+(deftest cons.3
+  (is (equal '(3 . #b010000000)
+             (to-adj (populate (make-instance 'digraph)
+                               :nodes '(a b c)
+                               :edges '((a b)))
+                     :type 'cons))))
+
 (deftest test.4
   (is (mequal #2A((0 1 0)
                   (0 0 0)
@@ -52,10 +75,22 @@
                                 :edges '((a b) (c c)))
                       :nodes '(a b c)))))
 
+(deftest cons.4
+  (is (equal '(3 . #b010000001)
+             (to-adj (populate (make-instance 'digraph)
+                               :nodes '(a b c)
+                               :edges '((a b) (c c)))
+                     :type 'cons))))
+
 (deftest test.5
   (is (mequal #2A((0 0)
                   (0 0))
               (to-adj (populate (make-instance 'graph) :nodes '(a b))))))
+
+(deftest cons.5
+  (is (equal '(2 . 0)
+             (to-adj (populate (make-instance 'graph) :nodes '(a b))
+                     :type 'cons))))
 
 (deftest test.6
   (is (mequal #2A((0 0 0)
@@ -90,11 +125,25 @@
                                 :edges '((a b) (c a) (a c)))
                       :nodes '(a b c)))))
 
+(deftest cons.9
+  (is (equal '(3 . #b011000100)
+             (to-adj (populate (make-instance 'digraph)
+                               :nodes '(a b c)
+                               :edges '((a b) (c a) (a c)))
+                     :type 'cons))))
+
 (deftest test.10
   (let ((graph
           (from-adj #2A((0 0 0)
                         (0 0 0)
                         (0 1 0))
+                    :nodes '(a b c))))
+    (is (set-equal '(a b c) (nodes graph)))
+    (is (edgequal '((c b)) (edges graph)))))
+
+(deftest cons.10
+  (let ((graph
+          (from-adj '(3 . #b000000010)
                     :nodes '(a b c))))
     (is (set-equal '(a b c) (nodes graph)))
     (is (edgequal '((c b)) (edges graph)))))
@@ -107,6 +156,19 @@
                     :nodes '(a b c))))
     (is (set-equal '(a b c) (nodes graph)))
     (is (edgequal '((c b) (c c) (b a)) (edges graph)))))
+
+(deftest cons.11
+  (let ((graph
+          (from-adj '(3 . #b000100011)
+                    :nodes '(a b c))))
+    (is (set-equal '(a b c) (nodes graph)))
+    (is (edgequal '((c b) (c c) (b a)) (edges graph)))))
+
+(deftest cons.11.b
+  (let ((graph
+          (from-adj '(3 . #b000100011))))
+    (is (set-equal '(0 1 2) (nodes graph)))
+    (is (edgequal '((2 1) (2 2) (1 0)) (edges graph)))))
 
 (deftest test.12
   (signals error
