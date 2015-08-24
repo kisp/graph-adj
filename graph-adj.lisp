@@ -22,9 +22,9 @@
                        (nodes (graph:nodes graph)))
   "NODES can be specified here, because the GRAPH object might not
 know its nodes in the correct order (due to hash-tables)."
-  (to-adj* graph type nodes))
+  (%to-adj graph type nodes))
 
-(defgeneric to-adj* (graph type nodes)
+(defgeneric %to-adj (graph type nodes)
   (:method (graph (type (eql 'array)) nodes)
     (let ((order (length nodes)))
       (let ((matrix (make-array (list order order) :element-type 'bit)))
@@ -40,7 +40,7 @@ know its nodes in the correct order (due to hash-tables)."
               (set-edge (reverse edge)))))
         matrix)))
   (:method (graph (type (eql 'cons)) nodes)
-    (let* ((array (to-adj* graph 'array nodes))
+    (let* ((array (%to-adj graph 'array nodes))
            (order (array-dimension array 0))
            (vector (make-array (* order order)
                                :displaced-to array
@@ -68,9 +68,9 @@ know its nodes in the correct order (due to hash-tables)."
 (defun from-adj (graph &key
                          nodes
                          (class 'graph:digraph))
-  (from-adj* graph nodes class))
+  (%from-adj graph nodes class))
 
-(defgeneric from-adj* (graph nodes class)
+(defgeneric %from-adj (graph nodes class)
   (:method ((graph array) nodes class)
     (let ((nodes (or nodes
                      (iota (array-dimension graph 0)))))
@@ -83,7 +83,7 @@ know its nodes in the correct order (due to hash-tables)."
                       :edges (build-edges graph nodes))))
   (:method ((graph cons) nodes class)
     (let ((order (car graph)))
-      (from-adj* (make-array (list order order)
+      (%from-adj (make-array (list order order)
                              :displaced-to (cons2vector graph)
                              :element-type 'bit)
                  nodes class))))
